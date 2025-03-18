@@ -1,82 +1,48 @@
 <script setup>
+// 
+import { ref } from 'vue'
+// Ici je suis en javascript
+// En vanilla 
+// J'attrappe l'element du dom et je modifie son contenu
+const title = "Alex's compteur"
+// Dans le hmtl j'attrappe l'element du dom et je lui assigne une variable {title}
+const compteur = ref(0);
+const compteurColor = ref('green');
 
+const increment = () => {
+  compteur.value++
+}
+const decrement = () => {
+  if (compteur.value > 0) {
+    compteur.value--
+  }
+
+}
+// 1 dans le noeud html directement > double moustache
+// 2 
 </script>
 
 <template>
-  <body>
-     <span class="counter-title">Compteur Title</span>
-    <div class='container'>
-        
-      <div class='counter-container' >
-        <span class="counter-display">0</span>
-      </div>
-
-      <div class='buttons-container'>
-          <button id='moins'>-</button>
-          <button id='plus'>+</button>
-      </div>
+  <span class="counter-title" >{{ title }}</span>
+  <div class='container'>
+    <!-- :style="{color: compteur == 0 ? 'crimson' : 'green'}" -->
+    <!-- :class="{positive: compteur > 0, zero: compteur == 0}" -->
+    <div class='counter-container'>
+      <span class="counter-display" :class="{'zero': compteur == 0}">{{ compteur }}</span>
     </div>
-  </body>
- 
+
+    <div class='buttons-container'>
+      <button id='moins' @click="decrement" >-</button>
+      <button id='plus' @click="increment">+</button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-
-body{
-
-	display:flex;
-  flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height:100vh;
-	margin:0;
-
+.positive{
+  color:green; 
 }
-
-
-.container{
-	box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-	height:530px;
-	width:500px;
-	border-radius:5px;
-}
-
-
-.counter-title{
-	font-size: large;
-	font-size: 3em;
-	color: rgb(105, 11, 65);
-	font-family: 'Bebas Neue', cursive;
-}
-
-.counter-container{
-	height:500px;
-	display:flex;
-	justify-content: space-evenly;
-	align-items: center;
-}
-
-.counter-display{
-	font-size: 24em;
-	font-family: 'Bebas Neue', cursive;
-}
-
-.buttons-container{
-	display:flex;
-	justify-content: space-between;
-}
-
-.buttons-container button{
-	background-color: rebeccapurple;
-	color:white;
-	border:none;
-	font-size: 1.5em;
-	cursor:pointer;
-	width:49%;
-}
-
-.buttons-container button:hover{
-	opacity:0.8;
+.zero{
+  color:crimson
 }
 </style>
